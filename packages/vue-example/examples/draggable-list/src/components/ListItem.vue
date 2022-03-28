@@ -37,21 +37,22 @@ function handleDrop(event: DragEvent) {
   }
 
   const dataTransfer = event.dataTransfer;
-  if (dataTransfer) {
-    const from: Data = JSON.parse(dataTransfer.getData("data"));
-    const to = Object.assign({}, props.data, { index: props.index });
+  if (!dataTransfer) return;
 
-    if (from.id === to.id) {
-      return;
-    }
+  if (!dataTransfer.getData("data")) return;
+  const from: Data = JSON.parse(dataTransfer.getData("data"));
+  const to = Object.assign({}, props.data, { index: props.index });
 
-    const exchangeEventParams: ExchangeEventParams = {
-      from,
-      to,
-    };
-
-    emits("exchange", exchangeEventParams);
+  if (from.id === to.id) {
+    return;
   }
+
+  const exchangeEventParams: ExchangeEventParams = {
+    from,
+    to,
+  };
+
+  emits("exchange", exchangeEventParams);
 }
 </script>
 
