@@ -18,7 +18,7 @@ export default class BSTNotTraverse<T> extends BST<T> {
 
     while (!stack.isEmpty()) {
       const current = stack.pop() as Node<T>;
-      callback(current.key);
+      callback(current.data);
 
       if (current.right) {
         stack.push(current.right);

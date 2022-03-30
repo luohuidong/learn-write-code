@@ -1,10 +1,10 @@
-export default class Node<K> {
-  key: K;
-  left: Node<K> | null;
-  right: Node<K> | null;
+export default class Node<Data> {
+  data: Data;
+  left: Node<Data> | null;
+  right: Node<Data> | null;
 
-  constructor(key: K) {
-    this.key = key;
+  constructor(data: Data) {
+    this.data = data;
     this.left = null;
     this.right = null;
   }

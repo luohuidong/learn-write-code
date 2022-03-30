@@ -29,7 +29,9 @@ test("插入元素", () => {
   bst.levelOrder((number) => {
     result.push(number);
   });
-  expect(result).toEqual([11, 7, 15, 5, 9, 13, 20, 3, 6, 8, 10, 12, 14, 18, 25]);
+  expect(result).toEqual([
+    11, 7, 15, 5, 9, 13, 20, 3, 6, 8, 10, 12, 14, 18, 25,
+  ]);
   expect(bst.size).toBe(15);
 });
 
@@ -38,7 +40,9 @@ test("广度优先遍历", () => {
   bst.levelOrder((number) => {
     result.push(number);
   });
-  expect(result).toEqual([11, 7, 15, 5, 9, 13, 20, 3, 6, 8, 10, 12, 14, 18, 25]);
+  expect(result).toEqual([
+    11, 7, 15, 5, 9, 13, 20, 3, 6, 8, 10, 12, 14, 18, 25,
+  ]);
 });
 
 test("空二叉搜索树的广度优先遍历", () => {
@@ -56,7 +60,9 @@ test("前序遍历", () => {
     result.push(number);
   });
 
-  expect(result).toEqual([11, 7, 5, 3, 6, 9, 8, 10, 15, 13, 12, 14, 20, 18, 25]);
+  expect(result).toEqual([
+    11, 7, 5, 3, 6, 9, 8, 10, 15, 13, 12, 14, 20, 18, 25,
+  ]);
 });
 
 test("中序遍历", () => {
@@ -64,7 +70,9 @@ test("中序遍历", () => {
   bst.inOrderTraverse((number) => {
     result.push(number);
   });
-  expect(result).toEqual([3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 20, 25]);
+  expect(result).toEqual([
+    3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 18, 20, 25,
+  ]);
 });
 
 test("后续遍历", () => {
@@ -72,7 +80,9 @@ test("后续遍历", () => {
   bst.postOrderTraverse((number) => {
     result.push(number);
   });
-  expect(result).toEqual([3, 6, 5, 8, 10, 9, 7, 12, 14, 13, 18, 25, 20, 15, 11]);
+  expect(result).toEqual([
+    3, 6, 5, 8, 10, 9, 7, 12, 14, 13, 18, 25, 20, 15, 11,
+  ]);
 });
 
 test("查找元素", () => {
@@ -84,7 +94,7 @@ test("查找非空二叉树不存在的元素", () => {
 });
 
 test("最小值", () => {
-  expect(bst.min().key).toBe(3);
+  expect(bst.min().data).toBe(3);
 });
 
 test("空二叉搜索树的最小值", () => {
@@ -93,7 +103,7 @@ test("空二叉搜索树的最小值", () => {
 });
 
 test("最大值", () => {
-  expect(bst.max().key).toBe(25);
+  expect(bst.max().data).toBe(25);
 });
 
 test("空二叉搜索树的最大值", () => {
@@ -102,7 +112,7 @@ test("空二叉搜索树的最大值", () => {
 });
 
 test("删除最小节点", () => {
-  expect(bst.removeMin().key).toBe(3);
+  expect(bst.removeMin().data).toBe(3);
 
   const result = [];
   bst.inOrderTraverse((num) => {
@@ -113,7 +123,7 @@ test("删除最小节点", () => {
 });
 
 test("删除最大节点", () => {
-  expect(bst.removeMax().key).toBe(25);
+  expect(bst.removeMax().data).toBe(25);
 
   const result = [];
   bst.inOrderTraverse((num) => {

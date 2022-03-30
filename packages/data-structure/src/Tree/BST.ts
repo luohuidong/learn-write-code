@@ -6,51 +6,53 @@ interface Callback<T> {
   (key: T): void;
 }
 
-interface BSTInterface<T> {
-  /** 向树中插入一个新键 */
-  insert: (key: T) => void;
+type BSTNode<Data> = Node<Data> | null;
+
+interface BSTInterface<Data> {
+  /** 向树中插入数据 */
+  insert: (data: Data) => void;
 
   /** 通过前序遍历方式遍历所有节点 */
-  preOrderTraverse: (callback: Callback<T>) => void;
+  preOrderTraverse: (callback: Callback<Data>) => void;
   /** 通过中序遍历方式遍历所有节点 */
-  inOrderTraverse: (callback: Callback<T>) => void;
+  inOrderTraverse: (callback: Callback<Data>) => void;
   /** 通过后序遍历方式遍历所有节点 */
-  postOrderTraverse: (callback: Callback<T>) => void;
+  postOrderTraverse: (callback: Callback<Data>) => void;
   /** 广度优先遍历 */
-  levelOrder: (callback: Callback<T>) => void;
+  levelOrder: (callback: Callback<Data>) => void;
 
-  /** 查找一个键 */
-  search: (key: T) => boolean;
-  /** 返回树中最小的键 */
-  min: () => Node<T> | null;
-  /** 返回树中最大的键 */
-  max: () => Node<T> | null;
+  /** 查找某个数据是否存在于树中 */
+  search: (data: Data) => boolean;
+  /** 返回树中最小的值 */
+  min: () => BSTNode<Data>;
+  /** 返回树中最大的值 */
+  max: () => BSTNode<Data>;
 
-  /** 从树中删除某个键 */
-  remove: (key: T) => void;
-  /** 删除树中的最小键 */
-  removeMin: (key: T) => Node<T> | null;
-  /** 删除树中的最大键 */
-  removeMax: (key: T) => Node<T> | null;
+  /** 从树中删除某个数据 */
+  remove: (data: Data) => void;
+  /** 删除树中的最小数据 */
+  removeMin: (data: Data) => BSTNode<Data>;
+  /** 删除树中的最大数据 */
+  removeMax: (data: Data) => BSTNode<Data>;
 
   /** 二叉搜索树是否为空 */
   isEmpty: () => boolean;
 }
 
-interface ICompareFunction<T> {
-  (a: T, b: T): number;
+interface ICompareFunction<Data> {
+  (a: Data, b: Data): number;
 }
 
-export default class BST<T> implements BSTInterface<T> {
-  protected _root: Node<T> | null = null;
-  protected compareFunction: ICompareFunction<T>;
+export default class BST<Data> implements BSTInterface<Data> {
+  protected _root: Node<Data> | null = null;
+  protected compareFunction: ICompareFunction<Data>;
   protected _size = 0;
 
-  constructor(compareFucnton: ICompareFunction<T> = defaultCompare) {
+  constructor(compareFucnton: ICompareFunction<Data> = defaultCompare) {
     this.compareFunction = compareFucnton;
   }
 
-  get root(): Node<T> | null {
+  get root(): BSTNode<Data> {
     return this._root;
   }
 
@@ -59,30 +61,30 @@ export default class BST<T> implements BSTInterface<T> {
   }
 
   /**
-   * 向二分搜索树中添加新的元素，如果元素重复，则数不会发生任何变化
-   * @param key
+   * 向二分搜索树中添加新的元素，如果元素重复，则树不会发生任何变化
+   * @param data
    */
-  insert(key: T): void {
-    this._root = this._insertNode(this._root, key);
+  insert(data: Data): void {
+    this._root = this._insertNode(this._root, data);
   }
 
   /**
-   * 向以 node 为根的二分搜索树中插入节点 element，递归算法
+   * 向以 node 为根的二分搜索树中插入节点数据，递归算法
    * @param node
-   * @param element
+   * @param data
    */
-  private _insertNode(node: Node<T> | null, key: T): Node<T> {
+  private _insertNode(node: Node<Data> | null, data: Data): Node<Data> {
     if (node === null) {
       this._size++;
-      return new Node(key);
+      return new Node(data);
     }
 
-    const result = this.compareFunction(key, node.key);
+    const result = this.compareFunction(data, node.data);
 
     if (result === Compare.LESS_THAN) {
-      node.left = this._insertNode(node.left, key);
+      node.left = this._insertNode(node.left, data);
     } else if (result === Compare.BIGGER_THAN) {
-      node.right = this._insertNode(node.right, key);
+      node.right = this._insertNode(node.right, data);
     }
 
     return node;
@@ -92,7 +94,7 @@ export default class BST<T> implements BSTInterface<T> {
    * 前序遍历
    * @param callback
    */
-  preOrderTraverse(callback: Callback<T>): void {
+  preOrderTraverse(callback: Callback<Data>): void {
     this._preOrderTraverseNode(this._root, callback);
   }
 
@@ -101,9 +103,9 @@ export default class BST<T> implements BSTInterface<T> {
    * @param node
    * @param callback
    */
-  private _preOrderTraverseNode(node: Node<T> | null, callback: Callback<T>) {
+  private _preOrderTraverseNode(node: BSTNode<Data>, callback: Callback<Data>) {
     if (node !== null) {
-      callback(node.key);
+      callback(node.data);
       this._preOrderTraverseNode(node.left, callback);
       this._preOrderTraverseNode(node.right, callback);
     }
@@ -113,7 +115,7 @@ export default class BST<T> implements BSTInterface<T> {
    * 中序遍历
    * @param callback
    */
-  inOrderTraverse(callback: Callback<T>): void {
+  inOrderTraverse(callback: Callback<Data>): void {
     this._inOrderTraverseNode(this._root, callback);
   }
 
@@ -122,10 +124,10 @@ export default class BST<T> implements BSTInterface<T> {
    * @param node
    * @param callback
    */
-  private _inOrderTraverseNode(node: Node<T> | null, callback: Callback<T>) {
+  private _inOrderTraverseNode(node: BSTNode<Data>, callback: Callback<Data>) {
     if (node !== null) {
       this._inOrderTraverseNode(node.left, callback);
-      callback(node.key);
+      callback(node.data);
       this._inOrderTraverseNode(node.right, callback);
     }
   }
@@ -134,7 +136,7 @@ export default class BST<T> implements BSTInterface<T> {
    * 后序遍历
    * @param callback
    */
-  postOrderTraverse(callback: Callback<T>): void {
+  postOrderTraverse(callback: Callback<Data>): void {
     this._postOrderTraverseNode(this._root, callback);
   }
 
@@ -143,26 +145,29 @@ export default class BST<T> implements BSTInterface<T> {
    * @param node
    * @param callback
    */
-  private _postOrderTraverseNode(node: Node<T> | null, callback: Callback<T>) {
+  private _postOrderTraverseNode(
+    node: BSTNode<Data>,
+    callback: Callback<Data>
+  ) {
     if (node !== null) {
       this._postOrderTraverseNode(node.left, callback);
       this._postOrderTraverseNode(node.right, callback);
-      callback(node.key);
+      callback(node.data);
     }
   }
 
-  levelOrder(callback: Callback<T>): void {
+  levelOrder(callback: Callback<Data>): void {
     if (!this._root) {
       return;
     }
 
-    const queue = new ArrayQueue<Node<T>>();
+    const queue = new ArrayQueue<Node<Data>>();
     queue.enqueue(this._root);
 
     while (!queue.isEmpty()) {
-      const node = queue.dequeue() as Node<T>;
+      const node = queue.dequeue() as Node<Data>;
 
-      callback(node.key);
+      callback(node.data);
 
       if (node.left) {
         queue.enqueue(node.left);
@@ -174,18 +179,16 @@ export default class BST<T> implements BSTInterface<T> {
     }
   }
 
-  /**
-   * 获取二叉树中的最小键
-   */
-  min(): Node<T> | null {
+  /** 获取二叉树中的最小键 */
+  min(): BSTNode<Data> {
     return this._min(this._root);
   }
 
   /**
-   * 查找以 node 为根节点的二叉树的最小键
+   * 查找以 node 为根节点的二叉树的最小元素
    * @param node
    */
-  private _min(node: Node<T> | null): Node<T> | null {
+  private _min(node: BSTNode<Data>): BSTNode<Data> {
     let currentNode = node;
 
     while (currentNode !== null && currentNode.left !== null) {
@@ -196,13 +199,13 @@ export default class BST<T> implements BSTInterface<T> {
   }
 
   /**
-   * 获取二叉树中最大的键
+   * 获取二叉树中最大的元素
    */
-  max(): Node<T> | null {
+  max(): BSTNode<Data> {
     return this._max(this._root);
   }
 
-  private _max(node: Node<T> | null): Node<T> | null {
+  private _max(node: BSTNode<Data>): BSTNode<Data> {
     let currentNode = node;
 
     while (currentNode !== null && currentNode.right !== null) {
@@ -216,36 +219,36 @@ export default class BST<T> implements BSTInterface<T> {
    * 查看树中是否包含某个元素
    * @param key
    */
-  search(key: T): boolean {
+  search(key: Data): boolean {
     return this._search(this._root, key);
   }
 
   /**
    * 查看树中是否包含某个元素（递归方法）
    * @param node
-   * @param key
+   * @param data
    */
-  private _search(node: Node<T> | null, key: T): boolean {
+  private _search(node: BSTNode<Data>, data: Data): boolean {
     if (node === null) {
       return false;
     }
 
-    const result = this.compareFunction(key, node.key);
+    const result = this.compareFunction(data, node.data);
 
     if (result === Compare.EQUALS) {
       return true;
     } else if (result === Compare.LESS_THAN) {
-      return this._search(node.left, key);
+      return this._search(node.left, data);
     } else {
-      return this._search(node.right, key);
+      return this._search(node.right, data);
     }
   }
 
-  removeMin(): Node<T> | null {
+  removeMin(): BSTNode<Data> {
     const min = this.min();
 
     if (min) {
-      this._removeMinNode(this._root as Node<T>);
+      this._removeMinNode(this._root as Node<Data>);
     }
 
     return min;
@@ -256,7 +259,7 @@ export default class BST<T> implements BSTInterface<T> {
    * 返回删除节点后的新的二分搜索树的根
    * @param node
    */
-  private _removeMinNode(node: Node<T>): Node<T> | null {
+  private _removeMinNode(node: Exclude<BSTNode<Data>, null>): BSTNode<Data> {
     if (node.left == null) {
       const rightNode = node.right;
       node.right = null;
@@ -268,17 +271,17 @@ export default class BST<T> implements BSTInterface<T> {
     }
   }
 
-  removeMax(): Node<T> | null {
+  removeMax(): BSTNode<Data> {
     const max = this.max();
 
     if (max) {
-      this._removeMaxNode(this._root as Node<T>);
+      this._removeMaxNode(this._root as Exclude<BSTNode<Data>, null>);
     }
 
     return max;
   }
 
-  private _removeMaxNode(node: Node<T>): Node<T> | null {
+  private _removeMaxNode(node: Exclude<BSTNode<Data>, null>): BSTNode<Data> {
     if (node.right === null) {
       const leftNode = node.left;
       node.left = null;
@@ -290,8 +293,8 @@ export default class BST<T> implements BSTInterface<T> {
     }
   }
 
-  remove(key: T): void {
-    this._root = this._removeNode(this._root, key); // 1
+  remove(data: Data): void {
+    this._root = this._removeNode(this._root, data); // 1
   }
 
   /**
@@ -301,21 +304,21 @@ export default class BST<T> implements BSTInterface<T> {
    * 1. 该节点只有一个子节点（一个左侧子节点或者一个右侧子节点）
    * 1. 该节点有两个子节点
    * @param node
-   * @param key
+   * @param data
    */
-  private _removeNode(node: Node<T> | null, key: T): Node<T> | null {
+  private _removeNode(node: BSTNode<Data>, data: Data): BSTNode<Data> {
     if (node === null) {
       return null;
     }
 
-    const result = this.compareFunction(key, node.key);
+    const result = this.compareFunction(data, node.data);
 
     if (result === Compare.LESS_THAN) {
       // 如果当前
-      node.left = this._removeNode(node.left, key);
+      node.left = this._removeNode(node.left, data);
       return node;
     } else if (result === Compare.BIGGER_THAN) {
-      node.right = this._removeNode(node.right, key);
+      node.right = this._removeNode(node.right, data);
       return node;
     } else {
       this._size--;
@@ -340,9 +343,9 @@ export default class BST<T> implements BSTInterface<T> {
       // 第三种情况：处理当前节点有两个子节点的情况
 
       // 找出当前节点的右子树中最小值，用于替换当前节点
-      const aux = this._min(node.right) as Node<T>;
+      const aux = this._min(node.right) as Node<Data>;
       // 将当前节点的 key 替换为右子树中的最小节点的 key
-      node.key = aux.key;
+      node.data = aux.data;
       // 由于当最小节点的 key 赋值给当前节点之后，要将原来的最小值删除
       node.right = this._removeMinNode(node.right);
       return node;
