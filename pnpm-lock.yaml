@@ -121,26 +121,26 @@ importers:
 
   packages/vue-example/examples/draggable-list:
     specifiers:
-      '@vitejs/plugin-vue': ^2.2.4
+      '@vitejs/plugin-vue': ^2.3.1
       typescript: ^4.6.3
-      vite: ^2.8.6
+      vite: ^2.9.1
       vue: ^3.2.31
       vue-tsc: ^0.33.9
     dependencies:
       vue: 3.2.31
     devDependencies:
-      '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
+      '@vitejs/plugin-vue': 2.3.1_vite@2.9.1+vue@3.2.31
       typescript: 4.6.3
-      vite: 2.8.6
+      vite: 2.9.1
       vue-tsc: 0.33.9_typescript@4.6.3
 
   packages/vue-example/examples/scroll-to-view:
     specifiers:
       '@types/lodash': ^4.14.181
-      '@vitejs/plugin-vue': ^2.2.4
+      '@vitejs/plugin-vue': ^2.3.1
       lodash: ^4.17.21
       typescript: ~4.6.3
-      vite: ^2.8.6
+      vite: ^2.9.1
       vue: ^3.2.31
       vue-router: ^4.0.14
       vue-tsc: ^0.33.9
@@ -150,24 +150,24 @@ importers:
       vue-router: 4.0.14_vue@3.2.31
     devDependencies:
       '@types/lodash': 4.14.181
-      '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
+      '@vitejs/plugin-vue': 2.3.1_vite@2.9.1+vue@3.2.31
       typescript: 4.6.3
-      vite: 2.8.6
+      vite: 2.9.1
       vue-tsc: 0.33.9_typescript@4.6.3
 
   packages/vue-example/examples/virtural-scroll-list:
     specifiers:
-      '@vitejs/plugin-vue': ^2.2.4
+      '@vitejs/plugin-vue': ^2.3.1
       typescript: ^4.6.3
-      vite: ^2.8.6
+      vite: ^2.9.1
       vue: ^3.2.31
       vue-tsc: ^0.33.9
     dependencies:
       vue: 3.2.31
     devDependencies:
-      '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
+      '@vitejs/plugin-vue': 2.3.1_vite@2.9.1+vue@3.2.31
       typescript: 4.6.3
-      vite: 2.8.6
+      vite: 2.9.1
       vue-tsc: 0.33.9_typescript@4.6.3
 
 packages:
@@ -1967,14 +1967,14 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitejs/plugin-vue/2.2.4_vite@2.8.6+vue@3.2.31:
-    resolution: {integrity: sha512-ev9AOlp0ljCaDkFZF3JwC/pD2N4Hh+r5srl5JHM6BKg5+99jiiK0rE/XaRs3pVm1wzyKkjUy/StBSoXX5fFzcw==}
+  /@vitejs/plugin-vue/2.3.1_vite@2.9.1+vue@3.2.31:
+    resolution: {integrity: sha512-YNzBt8+jt6bSwpt7LP890U1UcTOIZZxfpE5WOJ638PNxSEKOqAi0+FSKS0nVeukfdZ0Ai/H7AFd6k3hayfGZqQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.8.6
+      vite: 2.9.1
       vue: 3.2.31
     dev: true
 
@@ -2397,8 +2397,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001322
-      electron-to-chromium: 1.4.100
+      caniuse-lite: 1.0.30001323
+      electron-to-chromium: 1.4.103
       escalade: 3.1.1
       node-releases: 2.0.2
       picocolors: 1.0.0
@@ -2441,8 +2441,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001322:
-    resolution: {integrity: sha512-neRmrmIrCGuMnxGSoh+x7zYtQFFgnSY2jaomjU56sCkTA6JINqQrxutF459JpWcWRajvoyn95sOXq4Pqrnyjew==}
+  /caniuse-lite/1.0.30001323:
+    resolution: {integrity: sha512-e4BF2RlCVELKx8+RmklSEIVub1TWrmdhvA5kEUueummz1XyySW0DVk+3x9HyhU9MuWTa2BhqLgEuEmUwASAdCA==}
     dev: true
 
   /chalk/2.4.2:
@@ -2779,8 +2779,8 @@ packages:
       webidl-conversions: 5.0.0
     dev: true
 
-  /electron-to-chromium/1.4.100:
-    resolution: {integrity: sha512-pNrSE2naf8fizl6/Uxq8UbKb8hU9EiYW4OzCYswosXoLV5NTMOUVKECNzDaHiUubsPq/kAckOzZd7zd8S8CHVw==}
+  /electron-to-chromium/1.4.103:
+    resolution: {integrity: sha512-c/uKWR1Z/W30Wy/sx3dkZoj4BijbXX85QKWu9jJfjho3LBAXNEGAEW3oWiGb+dotA6C6BzCTxL2/aLes7jlUeg==}
     dev: true
 
   /emittery/0.8.1:
@@ -5294,8 +5294,8 @@ packages:
       source-map: 0.7.3
     dev: true
 
-  /vite/2.8.6:
-    resolution: {integrity: sha512-e4H0QpludOVKkmOsRyqQ7LTcMUDF3mcgyNU4lmi0B5JUbe0ZxeBBl8VoZ8Y6Rfn9eFKYtdXNPcYK97ZwH+K2ug==}
+  /vite/2.9.1:
+    resolution: {integrity: sha512-vSlsSdOYGcYEJfkQ/NeLXgnRv5zZfpAsdztkIrs7AZHV8RCMZQkwjo4DS5BnrYTqoWqLoUe1Cah4aVO4oNNqCQ==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:
